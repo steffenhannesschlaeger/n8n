@@ -346,6 +346,50 @@ export async function odooUpdate(
 	}
 }
 
+export async function odooWorkflow(
+	this: IHookFunctions | IExecuteFunctions | IExecuteSingleFunctions | ILoadOptionsFunctions,
+	db: string,
+	userID: number,
+	password: string,
+	resource: string,
+	customOperation: string,
+	url: string,
+	itemsID: string,
+) {
+	try {
+		if (!/^\d+$/.test(itemsID) || !parseInt(itemsID, 10)) {
+			throw new NodeApiError(this.getNode(), {
+				status: 'Error',
+				message: `Please specify a valid ID: ${itemsID}`,
+			});
+		}
+		const body = {
+			jsonrpc: '2.0',
+			method: 'call',
+			params: {
+				service: "object",
+				method: "execute",
+				args: [
+					db,
+					userID,
+					password,
+					"sale.order",
+					"action_confirm",
+					37
+				],
+			},
+			id: Math.floor(Math.random() * 100),
+		};
+
+		
+
+		const result = await odooJSONRPCRequest.call(this, body, url);
+		return result;
+	} catch (error) {
+		throw new NodeApiError(this.getNode(), error as JsonObject);
+	}
+}
+
 export async function odooDelete(
 	this: IHookFunctions | IExecuteFunctions | IExecuteSingleFunctions | ILoadOptionsFunctions,
 	db: string,

@@ -58,6 +58,11 @@ export const customResourceOperations: INodeProperties[] = [
 				value: 'update',
 				description: 'Update an item',
 			},
+			{
+				name: 'Workflow',
+				value: 'workflow',
+				description: 'Execute a workflow on the resource',
+			},
 		],
 	},
 ];
@@ -125,6 +130,7 @@ export const customResourceDescription: INodeProperties[] = [
 				operation: [
 					'get',
 					'delete',
+					'workflow',
 				],
 				resource: [
 					'custom',
@@ -320,6 +326,27 @@ export const customResourceDescription: INodeProperties[] = [
 			show: {
 				operation: [
 					'update',
+				],
+				resource: [
+					'custom',
+				],
+			},
+		},
+	},
+
+	/* -------------------------------------------------------------------------- */
+	/*                                custom: workflow                            */
+	/* -------------------------------------------------------------------------- */
+	{
+		displayName: 'Custom Operation',
+		name: 'customOperation',
+		type: 'string',
+		default: '',
+		required: true,
+		displayOptions: {
+			show: {
+				operation: [
+					'workflow',
 				],
 				resource: [
 					'custom',
