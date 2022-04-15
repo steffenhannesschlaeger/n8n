@@ -373,9 +373,9 @@ export async function odooWorkflow(
 					db,
 					userID,
 					password,
-					"sale.order",
-					"action_confirm",
-					37
+					resource,
+					customOperation,
+					[+itemsID] || []
 				],
 			},
 			id: Math.floor(Math.random() * 100),
